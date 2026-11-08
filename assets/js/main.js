@@ -52,8 +52,6 @@
     'loc.h': 'Cara menemukan kami',
     'd1': 'Pantai Pemuteran',
     'd1v': '14 menit jalan kaki',
-    'd2': 'Restoran dan toko',
-    'd2v': '3 menit naik motor',
     'd3': 'Pura Pulaki',
     'd4': 'Taman Nasional Bali Barat',
     'loc.open': 'Buka di Google Maps',
