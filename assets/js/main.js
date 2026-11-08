@@ -8,7 +8,7 @@
     'title': 'Kubu Sari Guest House, Pemuteran, Bali Utara',
     'skip': 'Langsung ke kamar',
     'nav.room': 'Kamar',
-    'nav.garden': 'Taman',
+    'nav.gallery': 'Galeri',
     'nav.around': 'Sekitar Pemuteran',
     'nav.location': 'Lokasi',
     'book': 'Pesan',
@@ -28,19 +28,16 @@
     'perk.bike': 'Sewa sepeda',
     'perk.beach': '14 menit jalan kaki ke pantai',
     'room.all': 'Semua foto',
-    'room.h': 'Kamar double dengan pemandangan taman',
+    'room.h': 'Bungalow dengan pemandangan taman',
     'room.lead': 'Setiap bungalow di taman ditata sama: ranjang besar berkelambu, teras pribadi, dan kamar mandi terbuka beratap langit.',
     'room.f1': 'Ranjang double besar dengan kelambu',
     'room.f2': 'Kamar mandi pribadi semi-terbuka dengan shower',
     'room.f3': 'Teras dengan sofa dan kursi santai',
     'room.f4': 'Sudah termasuk sarapan, seprai, dan handuk',
     'room.f5': 'Bebas rokok',
-    'ask.in': 'Check-in',
-    'ask.out': 'Check-out',
-    'ask.rooms': 'Kamar',
-    'ask.note': 'WhatsApp akan terbuka dengan tanggal Anda. Kami membalas dengan harga dan ketersediaan.',
-    'garden.h': 'Taman',
-    'garden.p': 'Kamboja, pohon palem, dan jalan setapak batu merah muda di antara bungalow.',
+    'garden.h': 'Galeri',
+    'garden.p': 'Bungalow, taman dengan jalan setapak batu merah muda, dan terumbu karang di dekatnya.',
+    'room.note': 'Kirim tanggal Anda, kami akan membalas dengan harga dan kamar yang tersedia.',
     'around.h': 'Sekitar Pemuteran',
     'around.p': 'Desa nelayan yang tenang di pesisir barat laut Bali, terkenal dengan lautnya yang tenang dan terumbu karang.',
     's1.h': 'Pulau Menjangan',
@@ -50,7 +47,7 @@
     's3.h': 'Pura Pulaki',
     's3.p': 'Pura di tepi laut di kaki tebing, 3 km dari sini, dengan kawanan monyet yang tinggal di sekitarnya.',
     's4.h': 'Matahari terbenam di teluk',
-    's4.p': 'Sore yang tenang di Pantai Pemuteran, saat matahari tenggelam di atas laut dan perbukitan.',
+    's4.p': 'Perahu nelayan dan hutan bakau dalam cahaya senja, beberapa menit dari Kubu Sari.',
     'v.soon': 'Video segera hadir',
     'v.sunset': 'Matahari terbenam, beberapa menit dari Kubu Sari',
     'v.sunrise': 'Matahari terbit di pesisir utara',
@@ -67,8 +64,8 @@
   };
 
   const MSG = {
-    en: { hello: "Hello! I'd like to book a room at Kubu Sari Guest House.", in: 'Check-in', out: 'Check-out', rooms: 'Rooms', badDates: 'Check-out must be after check-in.' },
-    id: { hello: 'Halo! Saya ingin memesan kamar di Kubu Sari Guest House.', in: 'Check-in', out: 'Check-out', rooms: 'Kamar', badDates: 'Tanggal check-out harus setelah check-in.' }
+    en: { hello: "Hello! I'd like to book a room at Kubu Sari Guest House." },
+    id: { hello: 'Halo! Saya ingin memesan kamar di Kubu Sari Guest House.' }
   };
 
   const nodes = [...document.querySelectorAll('[data-i18n]')];
@@ -132,33 +129,6 @@
       });
     });
   }
-
-  /* ---------------- WhatsApp booking form ---------------- */
-  const form = document.getElementById('ask');
-  const fin = form.elements.in, fout = form.elements.out;
-  const iso = d => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-  const today = new Date();
-  fin.min = iso(today);
-  fout.min = iso(new Date(today.getTime() + 864e5));
-  fin.addEventListener('change', () => {
-    if (!fin.value) return;
-    const next = new Date(fin.value + 'T12:00:00'); next.setDate(next.getDate() + 1);
-    fout.min = iso(next);
-    if (!fout.value || fout.value <= fin.value) fout.value = iso(next);
-  });
-  const fmt = v => new Date(v + 'T12:00:00').toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const m = MSG[lang];
-    if (fin.value && fout.value && fout.value <= fin.value) {
-      fout.setCustomValidity(m.badDates); fout.reportValidity(); fout.setCustomValidity(''); return;
-    }
-    const lines = [m.hello];
-    if (fin.value) lines.push(`${m.in}: ${fmt(fin.value)}`);
-    if (fout.value) lines.push(`${m.out}: ${fmt(fout.value)}`);
-    lines.push(`${m.rooms}: ${form.elements.rooms.value}`);
-    window.open(waLink(lines.join('\n')), '_blank', 'noopener');
-  });
 
   /* ---------------- Lightbox ---------------- */
   const full = src => src.replace(/-s\.webp$/, '.webp');
