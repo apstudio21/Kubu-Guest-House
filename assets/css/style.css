@@ -184,24 +184,14 @@ p{margin:0}
 
 /* ---------- Around ---------- */
 .around{padding:0 0 clamp(64px,9vw,120px);scroll-margin-top:40px}
-.spots{display:grid;grid-template-columns:1fr 1fr 1.25fr;grid-template-areas:"a a b" "c d b";gap:14px}
+.spots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .spot{border-radius:var(--r-lg);overflow:hidden;background:var(--white);box-shadow:0 0 0 1px var(--line);display:flex;flex-direction:column}
-.spot img{width:100%;object-fit:cover}
-.spot--wide{grid-area:a}
-.spot--wide img{aspect-ratio:16/8.5}
-.spot--tall{grid-area:b}
-.spot--tall img{flex:1;min-height:320px}
-.spot__txt{padding:20px 22px 24px}
-.spot p{margin-top:.5rem;color:var(--muted);max-width:52ch}
-.spot--text{padding:24px 22px;justify-content:flex-end;gap:18px;min-height:190px;box-shadow:none;background:var(--path-soft)}
-.spot--temple{grid-area:c}
-.spot--sun{grid-area:d}
-.spot--photo img{aspect-ratio:16/9}
-.spot--temple{color:#b4505d}
-.spot--temple h3,.spot--temple p{color:var(--ink)}
-.spot--temple p{color:#6b4f53}
-.spot__art{width:110px;height:auto;margin:0 0 auto -4px}
-
+.spot img,.spot__pic{width:100%;aspect-ratio:16/10;object-fit:cover}
+.spot__img--anemone{object-position:50% 62%}
+.spot__txt{padding:18px 20px 22px}
+.spot p{margin-top:.45rem;color:var(--muted);font-size:.95rem;max-width:52ch}
+.spot__pic{display:grid;place-items:center;background:var(--path-soft);color:#b4505d}
+.spot__art{width:132px;height:auto}
 .golden{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .clip{margin:0}
 .clip__media,.clip__empty{aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;width:100%}
@@ -278,8 +268,7 @@ p{margin:0}
   .hero__title{max-width:none}
   .sec-head{grid-template-columns:1fr}
   .sec-head p{justify-self:start}
-  .spots{grid-template-columns:1fr 1fr;grid-template-areas:"a a" "b b" "c d"}
-  .spot--tall img{aspect-ratio:4/3.4;min-height:0;flex:none;object-position:50% 40%}
+  .spots{grid-template-columns:1fr}
   .golden{grid-template-columns:1fr}
   .loc__in{grid-template-columns:1fr}
   .final__in{grid-template-columns:1fr}
@@ -309,8 +298,6 @@ p{margin:0}
   .masonry{columns:2;column-gap:8px}
   .masonry button{margin-bottom:8px;border-radius:10px}
   .room__more>span{font-size:.78rem;text-align:center;line-height:1.2;padding:4px}
-  .spots{grid-template-columns:1fr;grid-template-areas:"a" "b" "c" "d"}
-  .spot--text{min-height:0}
   .hero__cta .btn{flex:1 1 auto}
 }
 

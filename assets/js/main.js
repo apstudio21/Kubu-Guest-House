@@ -46,8 +46,6 @@
     's2.p': 'Proyek pemulihan terumbu karang yang bisa dinikmati dengan snorkeling langsung dari Pantai Pemuteran, tanpa perahu.',
     's3.h': 'Pura Pulaki',
     's3.p': 'Pura di tepi laut di kaki tebing, 3 km dari sini, dengan kawanan monyet yang tinggal di sekitarnya.',
-    's4.h': 'Matahari terbenam di teluk',
-    's4.p': 'Perahu nelayan dan hutan bakau dalam cahaya senja, beberapa menit dari Kubu Sari.',
     'v.soon': 'Video segera hadir',
     'v.sunset': 'Matahari terbenam, beberapa menit dari Kubu Sari',
     'v.sunrise': 'Matahari terbit di pesisir utara',
