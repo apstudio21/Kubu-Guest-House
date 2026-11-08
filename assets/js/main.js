@@ -188,34 +188,21 @@
     sx = sy = null;
   });
 
-  /* ---------------- Videos: load only when near the screen ---------------- */
-  const clips = [...document.querySelectorAll('.clip[data-video]')];
-  if ('IntersectionObserver' in window && clips.length) {
+  /* ---------------- Videos: start loading only when near the screen ---------------- */
+  const vids = [...document.querySelectorAll('video[data-src]')];
+  const startVid = v => {
+    if (!v.src) { v.src = v.dataset.src; v.load(); }
+    if (!reduce) { const pr = v.play(); if (pr) pr.catch(() => {}); }
+  };
+  if ('IntersectionObserver' in window) {
     const vio = new IntersectionObserver(entries => {
-      entries.forEach(({ target: clip, isIntersecting }) => {
-        let v = clip.querySelector('video');
-        if (isIntersecting && !clip.dataset.tried) {
-          clip.dataset.tried = '1';
-          v = document.createElement('video');
-          Object.assign(v, { muted: true, loop: true, playsInline: true, preload: 'metadata' });
-          v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
-          if (clip.dataset.poster) v.poster = clip.dataset.poster;
-          const wrap = document.createElement('div'); wrap.className = 'clip__media'; wrap.hidden = true;
-          wrap.appendChild(v); clip.prepend(wrap);
-          v.addEventListener('loadeddata', () => {
-            wrap.hidden = false;
-            const empty = clip.querySelector('.clip__empty'); if (empty) empty.remove();
-            if (!reduce) v.play().catch(() => {});
-          }, { once: true });
-          v.addEventListener('error', () => wrap.remove(), { once: true });
-          v.src = clip.dataset.video;
-        } else if (v && v.readyState > 1 && !reduce) {
-          isIntersecting ? v.play().catch(() => {}) : v.pause();
-        }
+      entries.forEach(({ target: v, isIntersecting }) => {
+        if (isIntersecting) startVid(v);
+        else if (v.src) v.pause();
       });
     }, { rootMargin: '200px 0px' });
-    clips.forEach(c => vio.observe(c));
-  }
+    vids.forEach(v => vio.observe(v));
+  } else vids.forEach(startVid);
 
   const yr = document.getElementById('yr'); if (yr) yr.textContent = new Date().getFullYear();
 })();
